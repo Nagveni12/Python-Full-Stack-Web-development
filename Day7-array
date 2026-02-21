@@ -1,0 +1,78 @@
+1.
+def reverse_array(arr, n):
+    if n == 0:      # base condition
+        return
+    print(arr[n-1], end=" ")
+    reverse_array(arr, n-1)
+
+# input
+arr = [1, 2, 3, 4, 5]
+reverse_array(arr, len(arr))
+
+2.
+# Base class
+class Notification:
+    def send_notification(self):
+        print("Sending notification...")
+
+# Instagram class
+class Instagram(Notification):
+    def send_notification(self):
+        print("New notification from Instagram")
+
+# WhatsApp class
+class WhatsApp(Notification):
+    def send_notification(self):
+        print("New notification from WhatsApp")
+
+# Email class
+class Email(Notification):
+    def send_notification(self):
+        print("New Email received")
+
+# Polymorphism
+def notify_user(app):
+    app.send_notification()
+
+# objects
+insta = Instagram()
+whatsapp = WhatsApp()
+email = Email()
+
+# calling same function for different objects
+notify_user(insta)
+notify_user(whatsapp)
+notify_user(email)
+
+3.
+class SeatBooking:
+    def __init__(self, total_seats):
+        self.total_seats = total_seats
+        self.current = 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.current <= self.total_seats:
+            seat = self.current
+            self.current += 1
+            return seat
+        else:
+            raise StopIteration
+
+
+booking = SeatBooking(3)
+
+while True:
+    choice = input("Book seat? (yes/no): ").lower()
+
+    if choice == "yes":
+        try:
+            seat = next(booking)
+            print(f"Seat {seat} booked successfully")
+        except StopIteration:
+            print("No seats available")
+            break
+    else:
+        break
