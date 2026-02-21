@@ -1,0 +1,47 @@
+1.
+def student_result():
+    n = int(input("Enter number of students: "))
+
+    for i in range(n):
+        marks = float(input(f"Enter marks for student {i+1}: "))
+
+        if marks > 90:
+            result = "A"
+        elif marks > 75:
+            result = "B"
+        elif marks > 50:
+            result = "C"
+        elif marks > 35:
+            result = "Pass"
+        else:
+            result = "Fail"
+
+        print(f"Student {i+1} Result: {result}")
+
+student_result()
+
+2.
+def print_name(name, n):
+    if n == 0:      # base condition
+        return
+    print(name)
+    print_name(name, n-1)   # recursive call
+
+# user input
+name = input("Enter name: ")
+times = int(input("How many times: "))
+
+print_name(name, times)
+
+3.
+def sum_n(n):
+    if n == 1:           # base condition
+        return 1
+    else:
+        return n + sum_n(n-1)   # recursive call
+
+# input
+n = int(input("Enter n: "))
+
+result = sum_n(n)
+print("Sum:", result)
