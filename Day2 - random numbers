@@ -1,0 +1,80 @@
+1.
+import random
+
+def number_guessing_game():
+    number = random.randint(1, 100)
+    attempts = 0
+
+    print("Guess a number between 1 and 100!")
+
+    while True:
+        guess = int(input("Enter your guess: "))
+        attempts += 1
+
+        if guess < number:
+            print("Too low!")
+        elif guess > number:
+            print("Too high!")
+        else:
+            print(f"Yay! You guessed it in {attempts} attempts.")
+            break
+
+# Call the function
+number_guessing_game()
+
+2.
+import random
+
+def simple_word_guessing_game():
+    words = ["apple", "banana", "cherry", "orange", "grape", "mango"]
+    secret_word = random.choice(words)
+    attempts = 0
+
+    print("Guess the fruit!")
+    print(f"Hint: It has {len(secret_word)} letters.")
+
+    while True:
+        guess = input("Enter your guess: ").lower()
+        attempts += 1
+
+        if guess < secret_word:
+            print("Your word comes alphabetically BEFORE the secret word.")
+        elif guess > secret_word:
+            print("Your word comes alphabetically AFTER the secret word.")
+        else:
+            print(f"Yay! You guessed '{secret_word}' in {attempts} attempts!")
+            break
+
+        # Additional hint
+        if len(guess) != len(secret_word):
+            print(f"Hint: The word has {len(secret_word)} letters.")
+
+# Start the game
+simple_word_guessing_game()
+
+3.
+import random
+
+def word_guessing_game():
+    words = ["apple", "banana", "cherry", "date", "fig", "grape", "kiwi", "lemon", "mango", "orange"]
+
+    secret_word = random.choice(words)
+    attempts = 0
+
+    print("Guess a word from this list:", words)
+    print("Clue: Words are in alphabetical order. Try to find the secret word!")
+
+    while True:
+        guess = input("Enter your guess: ").lower()
+        attempts += 1
+
+        if guess < secret_word:
+            print(f"'{guess}' comes BEFORE '{secret_word}' alphabetically!")
+        elif guess > secret_word:
+            print(f"'{guess}' comes AFTER '{secret_word}' alphabetically!")
+        else:
+            print(f"Yay! You guessed '{secret_word}' in {attempts} attempts!")
+            break
+
+
+word_guessing_game()
