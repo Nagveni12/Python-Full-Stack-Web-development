@@ -1,0 +1,77 @@
+1.
+my_list = [10, 20, 30]
+print("Initial List:", my_list)
+
+
+my_list.insert(1, 15)
+print("After Inserting 15:", my_list)
+
+# Removing an element
+my_list.remove(20)
+print("After Removing 20:", my_list)
+
+# Appending an element
+my_list.append(40)
+print("After Appending 40:", my_list)
+
+# Displaying the length of the list
+print("Length of the list:", len(my_list))
+
+# Popping an element
+popped_item = my_list.pop()
+print("Popped Element:", popped_item)
+print("List After Pop:", my_list)
+
+my_list.clear()
+print("List After Clearing:", my_list)
+
+2.
+marks = []
+
+while True:
+    print("\n1.Add  2.Display  3.Update  4.Delete  5.High/Low  6.Exit")
+    ch = int(input("Choice: "))
+
+    if ch == 1:
+        marks.append(int(input("Enter mark: ")))
+    elif ch == 2:
+        print("Marks:", marks)
+    elif ch == 3:
+        old = int(input("Old mark: "))
+        if old in marks:
+            marks[marks.index(old)] = int(input("New mark: "))
+        else:
+            print("Not found!")
+    elif ch == 4:
+        mark = int(input("Enter mark to delete: "))
+        if mark in marks:
+            marks.remove(mark)
+        else:
+            print("Not found!")
+    elif ch == 5:
+        if marks:
+            print("Highest:", max(marks), "Lowest:", min(marks))
+        else:
+            print("No marks!")
+    elif ch == 6:
+        break
+    else:
+        print("Invalid choice!")
+
+3.
+# Dictionaries
+cameras = {'canon':200, 'sony':300}
+print(cameras)
+
+cameras.update({'samsung':500})
+print(cameras)
+
+cameras['xyz'] = 1000
+print(cameras)
+
+print(cameras['sony'])
+print(cameras.keys())
+print(cameras.values())
+print(cameras.items())
+
+
