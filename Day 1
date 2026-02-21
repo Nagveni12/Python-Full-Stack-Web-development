@@ -1,0 +1,26 @@
+1.
+a=int(input("enter no1"))
+b=int(input("enter no2"))
+c=int(a)+int(b)
+print('c=' ,c)
+
+2.
+b=12.5  # variable is b
+c=complex(10,20)
+d=True
+L1=[10,20,30]
+t1=(10,20,30)
+s={10,20,30}
+di={'name':'ram','age':20}
+str='python'
+print('a=',a)  # but 'a' is not defined!
+print('c=',c)
+print(type(a))
+print(type(str))
+
+3.
+a,b,c=input("enter no1 = ").split()
+
+c=int(a)+int(b)+int(c)
+print('c=',c)
+
