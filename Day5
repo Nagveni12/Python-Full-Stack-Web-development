@@ -1,0 +1,42 @@
+1.
+for row in range(8):
+    for col in range(8):
+        if (row + col) % 2 == 0:
+            print("W", end=" ")
+        else:
+            print("B", end=" ")
+    print()   # move to next row
+
+
+2.
+def calculate_bill():
+    prices = []
+
+    n = int(input("Enter number of items: "))
+
+    for i in range(n):
+        price = float(input(f"Enter price of item {i+1}: "))
+        prices.append(price)
+
+    gst = float(input("Enter GST %: "))
+
+    total = sum(prices)
+    gst_amount = total * gst / 100
+    final = total + gst_amount
+
+    print("Final Bill:", final)
+
+calculate_bill()
+
+
+3.
+def calculate_simple_interest():
+    p = float(input("Enter principal: "))
+    r = float(input("Enter rate (%): "))
+    t = float(input("Enter time (years): "))
+
+    si = (p * r * t) / 100
+
+    print("Simple Interest:", si)
+
+calculate_simple_interest()
