@@ -9,12 +9,13 @@ while attempts > 0:
     password = input("Enter Password: ")
 
     if username == correct_username and password == correct_password:
-        print("Login Successful ✅")
+        print("Login Successful ")
         break
     else:
         attempts -= 1
-        print("Invalid Username or Password ❌")
+        print("Invalid Username or Password ")
         print("Attempts left:", attempts)
 
 if attempts == 0:
-    print("Account Locked 🔒 Too many failed attempts.")
+
+    print("Account Locked  Too many failed attempts.")
