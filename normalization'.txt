@@ -1,0 +1,29 @@
+1     Karthik     sql       java  
+
+1 NF:
+ONE column = one value
+1    Karthik   sql
+1    Karthik   java
+1    Karthik   maths
+
+2nf :
+must satisfy 1NF
+no partial dependency
+
+student table       course table        stu_cou 
+1  Karthik          101  sql          1   101
+                                      1   102
+
+3nf:
+
+student table 
+1 Karthik 50 cse
+
+must satisfy 2nf
+no transistive dependency
+
+student table       course table        stu_cou 
+1  Karthik          101  sql          1   101
+                                      1   102 dep table
+
+50 cse
