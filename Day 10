@@ -1,0 +1,149 @@
+A tech company stores information about its employees, departments, and projects.
+Management wants to analyze employee performance and salaries using different conditions.
+
+Tables
+Employees
+emp_id	name	salary	dept_id
+1	Ravi	50000	1
+2	Meena	70000	2
+3	Arun	60000	1
+4	Kiran	45000	2
+5	Pooja	80000	3
+Departments
+dept_id	dept_name
+1	IT
+2	HR
+3	Finance
+Projects
+project_id	emp_id	project_name
+101	1	AI System
+102	2	Payroll App
+103	3	Database Tool
+104	5	Finance Tracker
+Question Requirements
+
+Write SQL queries to answer the following:
+
+Requirement 1 (Single Row Subquery)
+
+Find employees whose salary is greater than the average salary of all employees.
+
+Hint: Use a single-row subquery with AVG().
+
+Expected Output Example
+
+name	salary
+Meena	70000
+Pooja	80000
+Requirement 2 (Multiple Row Subquery)
+
+Find employees who work in departments IT or Finance.
+
+Hint: Use a multiple-row subquery with IN.
+
+Expected Output Example
+
+name
+Ravi
+Arun
+Pooja
+Requirement 3 (Correlated Subquery)
+
+Find employees whose salary is higher than the average salary of their department.
+
+Hint: The subquery must depend on the outer query.
+
+Expected Output Example
+
+name	salary	dept_id
+Arun	60000	1
+Meena	70000	2
+Pooja	80000	3
+Requirement 4 (Nested Subquery)
+
+Find employees who are working on projects belonging to the IT department.
+
+Hint: Use subquery inside another subquery.
+
+Expected Output Example
+
+name
+Ravi
+Arun       ,  give the answer   
+
+
+CREATE TABLE Employees(
+emp_id INT,
+name VARCHAR(50),
+salary INT,
+dept_id INT
+);
+
+CREATE TABLE Departments(
+dept_id INT,
+dept_name VARCHAR(50)
+);
+
+CREATE TABLE Projects(
+project_id INT,
+emp_id INT,
+project_name VARCHAR(50)
+);   
+
+INSERT INTO Employees VALUES
+(1,'Ravi',50000,1),
+(2,'Meena',70000,2),
+(3,'Arun',60000,1),
+(4,'Kiran',45000,2),
+(5,'Pooja',80000,3);
+
+INSERT INTO Departments VALUES
+(1,'IT'),
+(2,'HR'),
+(3,'Finance');
+
+INSERT INTO Projects VALUES
+(101,1,'AI System'),
+(102,2,'Payroll App'),
+(103,3,'Database Tool'),
+(104,5,'Finance Tracker');
+
+SELECT name, salary
+FROM Employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM Employees
+);  
+
+SELECT name
+FROM Employees
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM Departments
+    WHERE dept_name IN ('IT','Finance')
+);  
+
+SELECT name, salary, dept_id
+FROM Employees e
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM Employees
+    WHERE dept_id = e.dept_id
+);  
+
+SELECT name
+FROM Employees
+WHERE emp_id IN (
+    SELECT emp_id
+    FROM Projects
+    WHERE emp_id IN (
+        SELECT emp_id
+        FROM Employees
+        WHERE dept_id = (
+            SELECT dept_id
+            FROM Departments
+            WHERE dept_name = 'IT'
+        )
+    )
+);
+
