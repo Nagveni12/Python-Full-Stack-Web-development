@@ -1,0 +1,295 @@
+A hospital maintains a database of doctors and patient appointments.
+Each doctor can handle only a limited number of patients per day.
+
+The hospital wants to automate appointment booking using a Stored Procedure.
+When a patient requests an appointment, the system must:
+
+Check whether the doctor still has available slots.
+
+If slots are available → book the appointment.
+If slots are full → show a message "Doctor not available today".
+
+Create a Stored Procedure to perform this operation automatically.
+
+Database Requirements
+Table 1: Doctors
+Column
+Type
+doctor_id
+INT
+doctor_name
+VARCHAR(50)
+specialization
+VARCHAR(50)
+max_patients_per_day
+INT
+booked_patients
+INT
+
+Table 2: Patients
+Column
+Type
+patient_id
+INT
+patient_name
+VARCHAR(50)
+
+Table 3: Appointments
+Column
+Type
+appointment_id
+INT
+patient_id
+INT
+doctor_id
+INT
+appointment_date
+DATE
+Stored Procedure Requirements
+
+Create a stored procedure named:
+
+book_appointment
+Input Parameters
+patient_id
+doctor_id
+appointment_date
+Procedure Logic
+The stored procedure must:
+
+Check if
+
+
+booked_patients < max_patients_per_day
+If true
+Insert a record into appointments table
+Increase booked_patients by 1
+If false
+Return message:
+
+
+Doctor not available today
+
+Tasks
+
+Task 1
+Create the Doctors, Patients, and Appointments tables.
+
+Task 2
+Insert sample data for:
+5 doctors
+10 patients
+
+Task 3
+Write a Stored Procedure named:
+
+
+book_appointment
+
+Task 4
+Call the stored procedure using:
+
+CALL book_appointment(3,1,'2026-03-15');
+
+Task 5
+Test two situations:
+Doctor has available slots → Appointment booked
+Doctor slots full → Show message   
+
+Ans:- 
+Task 1: Create Tables
+Doctors Table
+CREATE TABLE Doctors (
+    doctor_id INT PRIMARY KEY,
+    doctor_name VARCHAR(50),
+    specialization VARCHAR(50),
+    max_patients_per_day INT,
+    booked_patients INT
+);
+
+Meaning:
+
+max_patients_per_day → maximum patients doctor can handle
+
+booked_patients → how many patients already booked today
+
+Patients Table
+CREATE TABLE Patients (
+    patient_id INT PRIMARY KEY,
+    patient_name VARCHAR(50)
+);
+Appointments Table
+CREATE TABLE Appointments (
+    appointment_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT,
+    doctor_id INT,
+    appointment_date DATE,
+    FOREIGN KEY (patient_id) REFERENCES Patients(patient_id),
+    FOREIGN KEY (doctor_id) REFERENCES Doctors(doctor_id)
+);
+
+This table stores all appointment records.
+
+Task 2: Insert Sample Data
+Insert Doctors
+INSERT INTO Doctors VALUES
+(1,'Dr. Ravi','Cardiology',5,2),
+(2,'Dr. Meena','Dermatology',4,4),
+(3,'Dr. Arun','Neurology',3,1),
+(4,'Dr. Kiran','Orthopedic',6,3),
+(5,'Dr. Pooja','Pediatrics',5,5);
+
+Explanation:
+
+Example:
+
+Dr. Ravi
+Max patients = 5
+Already booked = 2
+
+So 3 slots still available.
+
+Insert Patients
+INSERT INTO Patients VALUES
+(1,'Amit'),
+(2,'Sneha'),
+(3,'Rahul'),
+(4,'Priya'),
+(5,'Karan'),
+(6,'Divya'),
+(7,'Anil'),
+(8,'Neha'),
+(9,'Suresh'),
+(10,'Pooja');
+Task 3: Create Stored Procedure
+
+We create a procedure called book_appointment.
+
+DELIMITER //
+
+CREATE PROCEDURE book_appointment(
+    IN p_patient_id INT,
+    IN p_doctor_id INT,
+    IN p_date DATE
+)
+
+BEGIN
+
+DECLARE max_slots INT;
+DECLARE booked INT;
+
+-- get doctor slot information
+SELECT max_patients_per_day, booked_patients
+INTO max_slots, booked
+FROM Doctors
+WHERE doctor_id = p_doctor_id;
+
+-- check if slots available
+IF booked < max_slots THEN
+
+    INSERT INTO Appointments(patient_id,doctor_id,appointment_date)
+    VALUES(p_patient_id,p_doctor_id,p_date);
+
+    UPDATE Doctors
+    SET booked_patients = booked_patients + 1
+    WHERE doctor_id = p_doctor_id;
+
+    SELECT 'Appointment Booked Successfully' AS Message;
+
+ELSE
+
+    SELECT 'Doctor not available today' AS Message;
+
+END IF;
+
+END //
+
+DELIMITER ;
+How This Procedure Works
+
+Step 1
+
+Get doctor details
+
+max_patients_per_day
+booked_patients
+
+Step 2
+
+Check condition
+
+booked_patients < max_patients_per_day
+Case 1: Slot Available
+
+Example:
+
+max_patients = 5
+booked = 2
+
+Condition:
+
+2 < 5  → TRUE
+
+Actions:
+
+1️⃣ Insert appointment
+2️⃣ Increase booked patients
+
+booked_patients = 3
+
+Output:
+
+Appointment Booked Successfully
+Case 2: Slot Full
+
+Example:
+
+max_patients = 5
+booked = 5
+
+Condition:
+
+5 < 5 → FALSE
+
+Output:
+
+Doctor not available today
+
+No appointment inserted.
+
+Task 4: Call Stored Procedure
+
+Example:
+
+CALL book_appointment(3,1,'2026-03-15');
+
+Meaning:
+
+Patient ID = 3
+Doctor ID = 1
+Date = 2026-03-15
+Task 5: Test Both Situations
+Situation 1: Slot Available
+
+Doctor 1
+
+max = 5
+booked = 2
+
+Result:
+
+Appointment Booked Successfully
+Situation 2: Slot Full
+
+Doctor 5
+
+max = 5
+booked = 5
+
+Call:
+
+CALL book_appointment(4,5,'2026-03-15');
+
+Result:
+
+Doctor not available today
