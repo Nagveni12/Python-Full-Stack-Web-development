@@ -1,0 +1,102 @@
+A university gives scholarships only to top students who have:
+Attendance above 85%
+Marks above 80
+However, the scholarship department should only see eligible students, not all students.
+
+To achieve this, the database administrator creates a View.
+
+Database Requirements
+
+Table 1: Students
+Columns:
+Column
+Type
+student_id
+INT
+name
+VARCHAR
+department
+VARCHAR
+marks
+INT
+attendance
+INT
+
+Tasks
+
+Task 1
+Create the students table.
+
+Task 2
+Insert at least 10 student records with different marks and attendance.
+
+Example:
+id
+name
+dept
+marks
+attendance
+
+
+Task 3
+Create a view called
+Copy code
+
+eligible_scholarship_students
+
+Condition:
+marks > 80
+attendance > 85
+
+Task 4
+Display all students who are eligible for scholarship using the view.
+
+Task 5
+Try to insert a student through the view whose marks are below 80 and observe the result.  
+
+Ans:- Create the students Table
+CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    department VARCHAR(50),
+    marks INT,
+    attendance INT
+);  
+
+ Task 2: Insert 10 Student Records
+INSERT INTO students VALUES
+(1,'Ravi','CSE',85,90),
+(2,'Meena','ECE',78,88),
+(3,'Arun','CSE',92,95),
+(4,'Kiran','EEE',65,70),
+(5,'Pooja','CSE',88,86),
+(6,'Rahul','ECE',75,82),
+(7,'Divya','IT',95,96),
+(8,'Suresh','IT',81,87),
+(9,'Anita','EEE',79,90),
+(10,'Vikram','CSE',84,83);  
+
+Task 3: Create the View
+
+The university wants only eligible students visible.
+
+Conditions:
+
+marks > 80
+
+attendance > 85
+
+CREATE VIEW eligible_scholarship_students AS
+SELECT student_id, name, department, marks, attendance
+FROM students
+WHERE marks > 80 AND attendance > 85;  
+
+ Task 4: Display Eligible Students
+SELECT * FROM eligible_scholarship_students;   
+
+Task 5: Insert Through the View
+
+Try inserting a student through the view:
+
+INSERT INTO eligible_scholarship_students
+VALUES (11,'Manoj','CSE',70,90);
